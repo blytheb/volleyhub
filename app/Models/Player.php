@@ -4,15 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Team extends Model
+class Player extends Model
 {
     protected $fillable = [
+        'team_id',
         'name',
-        'division',
+        'position',
     ];
 
-    public function players()
+    public function team()
     {
-        return $this->hasMany(Player::class);
+        return $this->belongsTo(Team::class);
     }
 }
