@@ -19,4 +19,5 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::view('/teams', 'teams')->middleware(['auth']);
+Route::view('/teams', 'teams')->middleware(['auth'])->name('teams');
+Route::view('/players', 'players')->middleware(['auth'])->name('players');

@@ -60,7 +60,6 @@ class Teams extends Component
         $this->teamId = $team->id;
         $this->name = $team->name;
         $this->division = $team->division;
-        $this->showModal = true;
     }
 
     public function closeModal()
