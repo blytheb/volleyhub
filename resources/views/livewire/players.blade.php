@@ -1,7 +1,22 @@
 <div>
     <div>
+        <h2 class="text-lg font-bold text-center">View All Players</h2>
+        <div class="flex gap-4 mb-4">
+            <input
+                type="text"
+                wire:model.live="search"
+                placeholder="Search by name..."
+                class="border p-2 w-full"
+            >
+            <select wire:model.live="selectedTeam" class="border p-2">
+                <option value="">All Teams</option>
+                @foreach ($teams as $team)
+                    <option value="{{ $team->id }}">{{ $team->name }}</option>
+                @endforeach
+            </select>
+        </div>
         <button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold nt-2 py-2 px-4 rounded" type="submit"
+            class="bg-blue-500 hover:bg-blue-700 text-center text-white font-bold nt-2 py-2 px-4 rounded" type="submit"
             wire:click="openCreate()"
             >Create New Player</button>
 
@@ -13,7 +28,7 @@
                             Team name
                         </th>
                         <th scope="col" class="px-6 py-3 font-medium">
-                            Division
+                            Position
                         </th>
                         <th scope="col" class="px-6 py-3 font-medium">
                             Team
@@ -24,6 +39,16 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <div wire:loading>
+                        Loading...
+                    </div>
+                    @if ($players->isEmpty())
+                        <tr>
+                            <td colspan="4" class="px-6 py-4 text-center text-gray-500">
+                                No players found.
+                            </td>
+                        </tr>
+                    @endif
                     @foreach ($players as $player)
                         <tr class="odd:bg-neutral-primary even:bg-neutral-secondary-soft border-b border-default">
                             <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">

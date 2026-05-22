@@ -22,6 +22,10 @@ class Players extends Component
 
     public $playerId = null;
 
+    public $search = '';
+
+    public $selectedTeam = '';
+
     public function save()
     {
         $this->validate();
@@ -39,9 +43,19 @@ class Players extends Component
 
     public function render()
     {
+
+        $players = Player::query()
+            ->when($this->search, function ($query) {
+                $query->where('name', 'like', '%'.$this->search.'%');
+            })
+            ->when($this->selectedTeam, function ($query) {
+                $query->where('team_id', $this->selectedTeam);
+            })
+            ->get();
+
         return view('livewire.players', [
-            'teams' => Team::all(),
-            'players' => Player::all(),
+            'teams' => Team::orderBy('name')->get(),
+            'players' => $players,
         ]);
     }
 
