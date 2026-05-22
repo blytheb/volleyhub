@@ -1,33 +1,22 @@
 <div>
     <div>
-        <form  wire:submit="save">
-            <div class="mb-4 p-4 border rounded text-center space-y-4">
-                <h2 class="text-lg font-bold">Create New Team</h2>
-                <div>
-                    <label for="name">Team Name:</label>
-                    <input type="text" wire:model="name" placeholder="Team Name">
-                    <div class="text-red-500">
-                        @error('name')
-                        <span> {{ $message}}</span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div>
-                    <label for="division">Division:</label>
-                    <input type="text" wire:model="division" placeholder="Division">
-                    <div class="text-red-500">
-                        @error('division')
-                        <span> {{ $message}}</span>
-                        @enderror
-                    </div>
-
-                </div>
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold nt-2 py-2 px-4 rounded" type="submit">Save Team</button>
-
-            </div>
-        </form>
-
+        <h2 class="text-lg font-bold text-center">View All Teams</h2>
+        <div wire:loading>
+            Loading...
+        </div>
+        <div class="flex gap-4 mb-4">
+            <input
+                type="text"
+                wire:model.live="search"
+                placeholder="Search by name..."
+                class="border p-2 w-full"
+            >
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-center text-white font-bold nt-2 py-2 px-4 rounded" type="submit"
+                wire:click="openCreate()"
+                >Create New Team
+            </button>
+        </div>
         <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
             <table class="w-full text-sm text-center rtl:text-right text-body">
                 <thead class="bg-neutral-secondary-soft border-b border-default">
@@ -74,7 +63,7 @@
     </div>
 
     @if ($showModal)
-        <x-team-modal>
+        <x-form-modal>
             <h2 class="text-xl font-bold mb-4">
                 {{ $teamId ? 'Edit Team' : 'Create Team' }}
             </h2>
@@ -94,7 +83,7 @@
                 </button>
 
             </div>
-        </x-team-modal>
+        </x-form-modal>
 
     @endif
 

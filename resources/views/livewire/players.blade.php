@@ -1,6 +1,9 @@
 <div>
     <div>
         <h2 class="text-lg font-bold text-center">View All Players</h2>
+        <div wire:loading>
+            Loading...
+        </div>
         <div class="flex gap-4 mb-4">
             <input
                 type="text"
@@ -14,11 +17,13 @@
                     <option value="{{ $team->id }}">{{ $team->name }}</option>
                 @endforeach
             </select>
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-center text-white font-bold nt-2 py-2 px-4 rounded" type="submit"
+                wire:click="openCreate()"
+                >Create New Player
+            </button>
         </div>
-        <button
-            class="bg-blue-500 hover:bg-blue-700 text-center text-white font-bold nt-2 py-2 px-4 rounded" type="submit"
-            wire:click="openCreate()"
-            >Create New Player</button>
+
 
         <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
             <table class="w-full text-sm text-center rtl:text-right text-body">
@@ -39,9 +44,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <div wire:loading>
-                        Loading...
-                    </div>
                     @if ($players->isEmpty())
                         <tr>
                             <td colspan="4" class="px-6 py-4 text-center text-gray-500">
@@ -82,7 +84,7 @@
     </div>
 
     @if ($showModal)
-        <x-team-modal wire:key="player-modal">
+        <x-form-modal wire:key="player-modal">
             <h2 class="text-xl font-bold mb-4">
                 {{ $playerId ? 'Edit Player' : 'Create Player' }}
             </h2>
@@ -120,9 +122,8 @@
                 <button wire:click="closeModal" class="bg-gray-300 px-4 py-2">
                     Cancel
                 </button>
-
             </div>
-        </x-team-modal>
+        </x-form-modal>
 
     @endif
 
