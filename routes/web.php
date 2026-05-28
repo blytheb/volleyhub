@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Livewire\TeamPage;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,4 +21,6 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::view('/teams', 'teams')->middleware(['auth'])->name('teams');
+Route::get('/teams/{team}', TeamPage::class)->middleware(['auth'])->name('teamPage');
+
 Route::view('/players', 'players')->middleware(['auth'])->name('players');

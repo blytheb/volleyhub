@@ -42,6 +42,12 @@
                                 {{ $team->division }}
                             </td>
                             <td class="px-6 py-4">
+                                <a
+                                    class="font-medium text-fg-brand hover:underline"
+                                    href="{{ route('teamPage', $team->id) }}"
+                                >
+                                    View
+                                </a>
                                 <button
                                     class="font-medium text-fg-brand hover:underline"
                                     wire:click="openEdit({{ $team->id }})"
