@@ -43,7 +43,7 @@ class Teams extends Component
     public function render()
     {
         return view('livewire.teams', [
-            'teams' => Team::all(),
+            'teams' => Team::with('players')->get(),
         ]);
     }
 

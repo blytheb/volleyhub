@@ -30,7 +30,7 @@
                 <thead class="bg-neutral-secondary-soft border-b border-default">
                     <tr>
                         <th scope="col" class="px-6 py-3 font-medium">
-                            Team name
+                            Name
                         </th>
                         <th scope="col" class="px-6 py-3 font-medium">
                             Position

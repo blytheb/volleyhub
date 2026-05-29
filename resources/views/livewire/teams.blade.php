@@ -1,4 +1,4 @@
-<div>
+<div class="p-6">
     <div>
         <h2 class="text-lg font-bold text-center">View All Teams</h2>
         <div wire:loading>
@@ -17,55 +17,77 @@
                 >Create New Team
             </button>
         </div>
-        <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
-            <table class="w-full text-sm text-center rtl:text-right text-body">
-                <thead class="bg-neutral-secondary-soft border-b border-default">
-                    <tr>
-                        <th scope="col" class="px-6 py-3 font-medium">
-                            Team name
-                        </th>
-                        <th scope="col" class="px-6 py-3 font-medium">
-                            Division
-                        </th>
-                        <th scope="col" class="px-6 py-3 font-medium">
-                            Action
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($teams as $team)
-                        <tr class="odd:bg-neutral-primary even:bg-neutral-secondary-soft border-b border-default">
-                            <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            @forelse($teams as $team)
+
+                <div class="bg-white rounded-2xl shadow-sm border p-5">
+
+                    {{-- HEADER --}}
+                    <div class="flex justify-between items-start">
+
+                        <div>
+
+                            <h2 class="text-xl font-bold">
                                 {{ $team->name }}
-                            </th>
-                            <td class="px-6 py-4">
+                            </h2>
+
+                            <p class="text-gray-500">
                                 {{ $team->division }}
-                            </td>
-                            <td class="px-6 py-4">
-                                <a
-                                    class="font-medium text-fg-brand hover:underline"
-                                    href="{{ route('teamPage', $team->id) }}"
-                                >
-                                    View
-                                </a>
-                                <button
-                                    class="font-medium text-fg-brand hover:underline"
-                                    wire:click="openEdit({{ $team->id }})"
-                                >
-                                    Edit
-                                </button>
-                                <button
-                                    class="font-medium text-fg-brand hover:underline"
-                                    wire:click="delete({{ $team->id }})"
-                                >
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    {{-- PLAYER COUNT --}}
+                    <div class="mt-4 text-sm text-gray-600">
+
+                        Players:
+                        {{ $team->players->count() }}
+
+                    </div>
+
+                    {{-- ACTIONS --}}
+                    <div class="flex gap-2 mt-6">
+
+                        <a
+                            href="{{ route('teams.show', $team) }}"
+                            class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm"
+                        >
+                            View
+                        </a>
+
+                        <button
+                            wire:click="openEdit({{ $team->id }})"
+                            class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm"
+                        >
+                            Edit
+                        </button>
+
+                        <button
+                            wire:click="openDelete({{ $team->id }})"
+                            class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+            @empty
+
+                <div class="col-span-full text-center py-12 text-gray-500">
+
+                    No teams found.
+
+                </div>
+
+            @endforelse
+
         </div>
+
     </div>
 
     @if ($showModal)

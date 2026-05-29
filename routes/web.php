@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::view('/teams', 'teams')->middleware(['auth'])->name('teams');
+Route::view('/teams', 'teams')->middleware(['auth'])->name('teams.show');
 Route::get('/teams/{team}', TeamPage::class)->middleware(['auth'])->name('teamPage');
 
 Route::view('/players', 'players')->middleware(['auth'])->name('players');
